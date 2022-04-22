@@ -1,26 +1,23 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Text } from "@chakra-ui/react";
 
-import useDocTitle from "../hooks/useDocTitle";
 import { useDataStore } from "../stores/dataStore";
+import Layout from "../components/Layout";
 
 function HomePage() {
-  useDocTitle("MadKudu DataViz");
   const dataStore = useDataStore();
 
-  // fetch antelopes data from the API when the Page is mounted
+  // fetch antelopes data from the API when the Page is mounted (letting dephs array empty to simulate componentDidMount)
   useEffect(() => {
     dataStore.fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div>
-      <Text fontWeight="bold" fontSize="4xl">
-        MadKudu DataViz
-      </Text>
+    <Layout title="MadKudu DataViz">
       <Text>{JSON.stringify(dataStore.antelopes)}</Text>
-    </div>
+    </Layout>
   );
 }
 

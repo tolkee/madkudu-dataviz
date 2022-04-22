@@ -1,18 +1,9 @@
 import { observer } from "mobx-react-lite";
-import { Text } from "@chakra-ui/react";
 
-import useDocTitle from "../hooks/useDocTitle";
+import Layout from "../components/Layout";
 
 function AnalysisPage() {
-  useDocTitle("Analysis");
-
-  return (
-    <div>
-      <Text fontWeight="bold" fontSize="4xl">
-        Analysis
-      </Text>
-    </div>
-  );
+  return <Layout title="Analysis" />;
 }
 
 export default observer(AnalysisPage);

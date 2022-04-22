@@ -38,7 +38,7 @@ export default class DataStore {
   }
 }
 
-export const dataStoreContext = React.createContext<DataStore | null>(null);
+const dataStoreContext = React.createContext<DataStore | null>(null);
 
 // Use this provider to be able to call useDataStore hook
 export function DataStoreProvider({ children }: React.PropsWithChildren<{}>) {
