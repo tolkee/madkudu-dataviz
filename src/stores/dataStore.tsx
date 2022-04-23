@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
-
+import { action, computed, makeObservable, observable } from "mobx";
 import axios from "axios";
-import { action, makeObservable, observable } from "mobx";
+
 import { Antelope } from "./types";
 
 const DATA_URL =
@@ -19,6 +19,8 @@ export default class DataStore {
       antelopes: observable,
       isError: observable,
       isLoading: observable,
+      kudu: computed,
+      antelopesWithoutKudu: computed,
       setAntelopes: action,
       setIsLoading: action,
       setIsError: action,
@@ -39,6 +41,20 @@ export default class DataStore {
     }
 
     this.setIsLoading(false);
+  }
+
+  get kudu(): Antelope | null {
+    return (
+      this.antelopes.find((ant) =>
+        ant.name.toLocaleLowerCase().includes("kudu")
+      ) || null
+    );
+  }
+
+  get antelopesWithoutKudu(): Antelope[] {
+    return this.antelopes.filter(
+      (ant) => !ant.name.toLocaleLowerCase().includes("kudu")
+    );
   }
 
   setAntelopes(antelopes: Antelope[]) {

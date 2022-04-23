@@ -10,7 +10,8 @@ interface LayoutProps {
 
 const LayoutWrapper = styled.div`
   width: 100vw;
-  margin: 10px;
+  height: 100vh;
+  padding: 10px;
 `;
 
 function Layout({ title, children }: PropsWithChildren<LayoutProps>) {
