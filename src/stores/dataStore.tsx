@@ -1,40 +1,56 @@
 import React, { useMemo } from "react";
 
 import axios from "axios";
-import { action, makeObservable, observable, runInAction } from "mobx";
-import { Antelopes } from "./types";
+import { action, makeObservable, observable } from "mobx";
+import { Antelope } from "./types";
 
 const DATA_URL =
   "https://work-sample-mk-fs.s3-us-west-2.amazonaws.com/species.json";
 
 export default class DataStore {
-  antelopes: Antelopes[] = [];
+  antelopes: Antelope[] = [];
 
-  loading: boolean = false;
+  isLoading: boolean = false;
 
-  error: boolean = false;
+  isError: boolean = false;
 
   constructor() {
     makeObservable(this, {
       antelopes: observable,
-      error: observable,
-      loading: observable,
-      fetchData: action,
+      isError: observable,
+      isLoading: observable,
+      setAntelopes: action,
+      setIsLoading: action,
+      setIsError: action,
     });
+
+    this.fetchData();
   }
 
   async fetchData() {
-    this.error = false;
-    this.loading = true;
+    this.setIsError(false);
+    this.setIsLoading(true);
+
     try {
-      const datas = await axios.get<Antelopes[]>(DATA_URL);
-      runInAction(() => {
-        this.antelopes = datas.data;
-      });
+      const { data: antelopes } = await axios.get<Antelope[]>(DATA_URL);
+      this.setAntelopes(antelopes);
     } catch (error) {
-      this.error = true;
+      this.setIsError(true);
     }
-    this.loading = false;
+
+    this.setIsLoading(false);
+  }
+
+  setAntelopes(antelopes: Antelope[]) {
+    this.antelopes = antelopes;
+  }
+
+  setIsLoading(isLoading: boolean) {
+    this.isLoading = isLoading;
+  }
+
+  setIsError(isError: boolean) {
+    this.isError = isError;
   }
 }
 
