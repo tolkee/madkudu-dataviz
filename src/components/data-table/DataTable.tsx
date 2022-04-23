@@ -25,7 +25,7 @@ function DataTable() {
 
   const { kudu, isError, isLoading, antelopesWithoutKudu } = dataStore;
   return (
-    <Box borderWidth="1px" borderRadius="lg" width="90%">
+    <Box borderWidth="1px" borderRadius="lg">
       <TableContainer>
         <Table variant="simple" size="md">
           <TableCaption>

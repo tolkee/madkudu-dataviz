@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import styled from "styled-components";
-import { Text } from "@chakra-ui/react";
+import { Text, useBreakpointValue } from "@chakra-ui/react";
 
 import useDocTitle from "../hooks/useDocTitle";
 
@@ -8,17 +8,21 @@ interface LayoutProps {
   title: string;
 }
 
-const LayoutWrapper = styled.div`
+const LayoutWrapper = styled.div<{ paddingLR: string }>`
   width: 100vw;
   height: 100vh;
-  padding: 10px;
+  padding-left: ${(p) => p.paddingLR};
+  padding-right: ${(p) => p.paddingLR};
 `;
 
 function Layout({ title, children }: PropsWithChildren<LayoutProps>) {
   useDocTitle(title);
 
+  // get padding right and left of the layout depending on breakpoint
+  const paddingLR = useBreakpointValue({ base: "3%", lg: "10%" }) || "10%";
+
   return (
-    <LayoutWrapper>
+    <LayoutWrapper paddingLR={paddingLR}>
       <Text fontWeight="bold" fontSize="4xl">
         {title}
       </Text>
