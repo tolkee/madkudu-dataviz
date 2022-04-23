@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import styled from "styled-components";
-import { Text, useBreakpointValue, Link } from "@chakra-ui/react";
 import { Link as WouterLink } from "wouter";
+import { Text, useBreakpointValue, Link } from "@chakra-ui/react";
 
 import useDocTitle from "../hooks/useDocTitle";
 
@@ -15,6 +15,7 @@ const LayoutWrapper = styled.div<{ paddingLR: string }>`
   padding-left: ${(p) => p.paddingLR};
   padding-right: ${(p) => p.paddingLR};
   padding-top: 2%;
+  padding-bottom: 2%;
 `;
 
 function Layout({
@@ -35,10 +36,10 @@ function Layout({
       <Link as={WouterLink} to="/analysis" marginLeft="5" color="blue.500">
         Analysis
       </Link>
-      <Text fontWeight="bold" fontSize="4xl">
+      <Text fontWeight="bold" fontSize="4xl" paddingTop="4">
         {title}
       </Text>
-      <Text fontSize="lg" paddingBottom="6">
+      <Text fontSize="lg" paddingBottom="5">
         {description}
       </Text>
       {children}

@@ -3,6 +3,7 @@ import { action, computed, makeObservable, observable } from "mobx";
 import axios from "axios";
 
 import { Antelope } from "./types";
+import { isolateFieldInArray } from "../utils";
 
 const DATA_URL =
   "https://work-sample-mk-fs.s3-us-west-2.amazonaws.com/species.json";
@@ -21,6 +22,8 @@ export default class DataStore {
       isLoading: observable,
       kudu: computed,
       antelopesWithoutKudu: computed,
+      continents: computed,
+      horns: computed,
       setAntelopes: action,
       setIsLoading: action,
       setIsError: action,
@@ -55,6 +58,17 @@ export default class DataStore {
     return this.antelopes.filter(
       (ant) => !ant.name.toLocaleLowerCase().includes("kudu")
     );
+  }
+
+  get continents(): string[] {
+    return isolateFieldInArray<Antelope, "continent">(
+      this.antelopes,
+      "continent"
+    );
+  }
+
+  get horns(): string[] {
+    return isolateFieldInArray<Antelope, "horns">(this.antelopes, "horns");
   }
 
   setAntelopes(antelopes: Antelope[]) {

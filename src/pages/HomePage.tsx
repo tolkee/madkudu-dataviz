@@ -7,7 +7,7 @@ function HomePage() {
   return (
     <Layout
       title="MadKudu DataViz"
-      description="Learn more about antelopes species !"
+      description="Learn more about antelope species !"
     >
       <DataTable />
     </Layout>
