@@ -5,7 +5,10 @@ import Layout from "../components/Layout";
 
 function HomePage() {
   return (
-    <Layout title="MadKudu DataViz">
+    <Layout
+      title="MadKudu DataViz"
+      description="Learn more about antelopes species !"
+    >
       <DataTable />
     </Layout>
   );
