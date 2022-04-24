@@ -15,6 +15,8 @@ const IconsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  width: 100%;
 `;
 
 function HomePage() {
