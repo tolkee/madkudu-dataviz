@@ -16,16 +16,32 @@ import { useDataStore } from "../../stores/dataStore";
 import DataTableLine from "./DataTableLine";
 import Loader from "../Loader";
 
+interface DataTableProps {
+  kuduPinned?: boolean;
+}
+
 const TextCaptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-function DataTable() {
+
+function DataTable({ kuduPinned }: DataTableProps) {
   const dataStore = useDataStore();
 
-  const { kudu, isError, isLoading, antelopesWithoutKudu } = dataStore;
+  const {
+    kudu,
+    isError,
+    isLoading,
+    antelopesFiltered,
+    antelopesFilteredWithoutKudu,
+  } = dataStore;
+
+  const antelopesData = kuduPinned
+    ? antelopesFilteredWithoutKudu
+    : antelopesFiltered;
+
   return (
-    <Box borderWidth="1px" borderRadius="lg">
+    <Box borderWidth="1px" borderRadius="lg" marginTop={7}>
       <TableContainer>
         <Table variant="simple" size="md">
           <TableCaption>
@@ -53,14 +69,14 @@ function DataTable() {
             </Tr>
           </Thead>
           <Tbody>
-            {kudu && (
+            {kudu && kuduPinned && (
               <DataTableLine
                 key={kudu.name + kudu.horns + kudu.continent}
                 antelope={kudu}
                 isHighlighted
               />
             )}
-            {antelopesWithoutKudu.map((ant) => (
+            {antelopesData.map((ant) => (
               <DataTableLine
                 key={ant.name + ant.horns + ant.continent}
                 antelope={ant}
@@ -72,5 +88,9 @@ function DataTable() {
     </Box>
   );
 }
+
+DataTable.defaultProps = {
+  kuduPinned: false,
+};
 
 export default observer(DataTable);
