@@ -16,6 +16,10 @@ const LayoutWrapper = styled.div<{ paddingLR: string }>`
   padding-right: ${(p) => p.paddingLR};
   padding-top: 2%;
   padding-bottom: 2%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
 `;
 
 function Layout({
