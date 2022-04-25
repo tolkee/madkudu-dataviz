@@ -6,19 +6,28 @@ import { Button, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import { useStores } from "../stores";
 import { Chart, ChartMakerModal, Layout } from "../components";
 
-const ChartsWrapper = styled.div`
+const ChartsWrapper = styled.div<{ chartWidth: string }>`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 
-  margin-right: -40px;
+  ${(p) =>
+    p.chartWidth !== "100%" &&
+    `
+      margin-right: -40px;
+  `}
   margin-bottom: -40px;
 `;
 
-const ChartWrapper = styled.div<{ widhtWithBP: string }>`
-  width: ${(p) => p.widhtWithBP};
+const ChartWrapper = styled.div<{ chartWidth: string }>`
+  width: ${(p) => p.chartWidth};
 
-  margin-right: 40px;
+  ${(p) =>
+    p.chartWidth !== "100%" &&
+    `
+      margin-right: 40px;
+  `}
+
   margin-bottom: 40px;
 `;
 
@@ -26,8 +35,7 @@ function AnalysisPage() {
   const { analysisStore } = useStores();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const chartWidth =
-    useBreakpointValue({ base: "100%", lg: "100%", xl: "40%" }) || "100%";
+  const chartWidth = useBreakpointValue({ base: "100%", xl: "45%" }) || "45%";
 
   return (
     <Layout
@@ -43,9 +51,9 @@ function AnalysisPage() {
       >
         Create your Chart
       </Button>
-      <ChartsWrapper>
+      <ChartsWrapper chartWidth={chartWidth}>
         {analysisStore.charts.map((c) => (
-          <ChartWrapper key={c.title + c.type} widhtWithBP={chartWidth}>
+          <ChartWrapper key={c.title + c.type} chartWidth={chartWidth}>
             <Chart chart={c} />
           </ChartWrapper>
         ))}

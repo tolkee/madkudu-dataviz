@@ -44,7 +44,7 @@ function Layout({
   useDocTitle(title);
 
   // get padding right and left of the layout depending on breakpoint
-  const paddingLR = useBreakpointValue({ base: "4%", lg: "10%" }) || "10%";
+  const paddingLR = useBreakpointValue({ base: "4%", xl: "10%" }) || "10%";
 
   return (
     <LayoutWrapper paddingLR={paddingLR}>

@@ -59,7 +59,9 @@ const SettingLabel = styled(Text).attrs({
 
 function ChartMakerModal({ isOpen, onClose }: ChartMakerModalProps) {
   const { analysisStore } = useStores();
-  const modalSize = useBreakpointValue({ base: "full", lg: "6xl" }) || "lg";
+
+  const modalSize =
+    useBreakpointValue({ base: "full", lg: "4xl", xl: "6xl" }) || "lg";
 
   const [type, setType] = useState<ChartType>("bar");
   const [title, setTitle] = useState("Chart title");
