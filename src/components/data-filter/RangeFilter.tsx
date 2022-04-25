@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 
-import { NumberRange } from "../../stores/types";
+import { NumberRange } from "../../types/data";
 
 interface RangeFilterProps {
   range: NumberRange;

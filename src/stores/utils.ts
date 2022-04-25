@@ -1,4 +1,4 @@
-import { Antelope, NumberRange, SORTS } from "./types";
+import { Antelope, NumberRange, SORTS } from "../types/data";
 
 // Return all the values (from an array of object) for a given key without duplications
 export function isolateFieldInArray<T, X extends keyof T>(
@@ -39,4 +39,21 @@ export function sortAntelopesArray(
     default:
       return antelopes.sort((ant1, ant2) => ant1.name.localeCompare(ant2.name));
   }
+}
+
+export function getNbOfAntPerValueForAField(
+  ants: Antelope[],
+  field: "horns" | "continent"
+) {
+  const antPerCont: { [cont: string]: number } = {};
+
+  ants.forEach((ant) => {
+    if (antPerCont[ant[field]] === undefined) {
+      antPerCont[ant[field]] = 1;
+    } else {
+      antPerCont[ant[field]] += 1;
+    }
+  });
+
+  return antPerCont;
 }

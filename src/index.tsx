@@ -1,11 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Route } from "wouter";
+import { ChakraProvider } from "@chakra-ui/react";
 
-import App from "./App";
+import { StoresProvider } from "./stores";
+import { AnalysisPage, HomePage } from "./pages";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider>
+      <StoresProvider>
+        <Route path="/" component={HomePage} />
+        <Route path="/analysis" component={AnalysisPage} />
+      </StoresProvider>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

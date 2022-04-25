@@ -12,7 +12,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-import { useDataStore } from "../../stores/dataStore";
+import { useStores } from "../../stores";
 import DataTableLine from "./DataTableLine";
 import Loader from "../Loader";
 
@@ -26,7 +26,7 @@ const TextCaptionWrapper = styled.div`
 `;
 
 function DataTable({ kuduPinned }: DataTableProps) {
-  const dataStore = useDataStore();
+  const { dataStore } = useStores();
 
   const {
     kudu,
@@ -41,7 +41,7 @@ function DataTable({ kuduPinned }: DataTableProps) {
     : antelopesFiltered;
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" marginTop={7}>
+    <Box borderWidth="1px" borderRadius="lg">
       <TableContainer>
         <Table variant="simple" size="md">
           <TableCaption>

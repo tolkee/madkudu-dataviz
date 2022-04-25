@@ -4,12 +4,9 @@ import styled from "styled-components";
 import { Crosshair, Filter } from "react-feather";
 import { Button, IconButton, Select } from "@chakra-ui/react";
 
-import { SORTS } from "../stores/types";
-import { useDataStore } from "../stores/dataStore";
-import DataTable from "../components/data-table";
-import DataFilter from "../components/data-filter";
-import Layout from "../components/Layout";
-import FlexDivider from "../components/FlexDivider";
+import { SORTS } from "../types/data";
+import { useStores } from "../stores";
+import { DataTable, DataFilter, Layout, FlexDivider } from "../components";
 
 const IconsWrapper = styled.div`
   display: flex;
@@ -17,10 +14,12 @@ const IconsWrapper = styled.div`
   justify-content: space-between;
 
   width: 100%;
+
+  margin-bottom: 28px;
 `;
 
 function HomePage() {
-  const dataStore = useDataStore();
+  const { dataStore } = useStores();
   const [filterShowed, setFilterShowed] = useState(false);
   const [kuduPinned, setKuduPinned] = useState(false);
 

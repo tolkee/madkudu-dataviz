@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import styled from "styled-components";
 import { Text } from "@chakra-ui/react";
 
-import { useDataStore } from "../../stores/dataStore";
+import { useStores } from "../../stores";
 import CheckBoxFilter from "./CheckBoxFilter";
 import RangeFilter from "./RangeFilter";
 
@@ -18,7 +18,7 @@ const FilterTitle = styled(Text).attrs({
 })``;
 
 function DataFilter() {
-  const dataStore = useDataStore();
+  const { dataStore } = useStores();
 
   const { continents, horns, weightRange, heightRange } = dataStore.filters;
 

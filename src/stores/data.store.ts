@@ -1,8 +1,7 @@
-import React, { useMemo } from "react";
 import { action, computed, makeObservable, observable } from "mobx";
 import axios from "axios";
 
-import { Antelope, Filters, NumberRange, SORTS } from "./types";
+import { Antelope, Filters, NumberRange, SORTS } from "../types/data";
 import {
   getRangeFromArray,
   inRange,
@@ -64,10 +63,6 @@ export default class DataStore {
     }
 
     this.setIsLoading(false);
-  }
-
-  updateFilters(filters: Partial<Filters>) {
-    this.filters = { ...this.filters, ...filters };
   }
 
   /* ---- Computed Values ----- */
@@ -136,7 +131,7 @@ export default class DataStore {
     };
   }
 
-  /* ---- Setters for observables ----- */
+  /* ---- Observable modifiers ----- */
 
   setAntelopes(antelopes: Antelope[]) {
     this.antelopes = antelopes;
@@ -153,27 +148,8 @@ export default class DataStore {
   setSortBy(sortBy: SORTS) {
     this.sortBy = sortBy;
   }
-}
 
-const dataStoreContext = React.createContext<DataStore | null>(null);
-
-// Use this provider to be able to call useDataStore hook
-export function DataStoreProvider({ children }: { children: React.ReactNode }) {
-  const dataStore = useMemo(() => new DataStore(), []);
-
-  return (
-    <dataStoreContext.Provider value={dataStore}>
-      {children}
-    </dataStoreContext.Provider>
-  );
-}
-
-// Use that hook to access the dataStore from a component
-export function useDataStore() {
-  const dataStore = React.useContext(dataStoreContext);
-
-  if (!dataStore) {
-    throw new Error("Need to use dataStore provider");
+  updateFilters(filters: Partial<Filters>) {
+    this.filters = { ...this.filters, ...filters };
   }
-  return dataStore;
 }

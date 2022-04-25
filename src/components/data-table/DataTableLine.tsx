@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Td, Tr, Image, Tag } from "@chakra-ui/react";
 
-import { Antelope } from "../../stores/types";
+import { Antelope } from "../../types/data";
 
 interface DataTableLineProps {
   antelope: Antelope;
