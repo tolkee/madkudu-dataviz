@@ -2,38 +2,12 @@ import { action, makeObservable } from "mobx";
 
 import DataStore from "./data.store";
 import { DataField, ChartSchema, ChartData, ChartInfo } from "../types/chart";
-import { getNbOfAntPerValueForAField } from "./utils";
-
-const DEFAULT_CHARTS: ChartSchema[] = [
-  {
-    type: "pie",
-    title: "Antelopes per continent",
-    dataOne: "continent",
-  },
-  {
-    type: "line",
-    title: "Antelopes per horns",
-    dataOne: "horns",
-  },
-  {
-    type: "bar",
-    title: "Antelopes by horns per continent",
-    dataOne: "continent",
-    dataTwo: "horns",
-    stacked: true,
-  },
-  {
-    type: "bar",
-    title: "Antelopes by continent per horn",
-    dataOne: "horns",
-    dataTwo: "continent",
-    stacked: false,
-  },
-];
+import { getNbOfAntPerValueForAField } from "../utils";
+import Settings from "./settings";
 
 export default class AnalysisStore {
   dataStore: DataStore;
-  charts: ChartSchema[] = DEFAULT_CHARTS;
+  charts: ChartSchema[] = Settings.initialCharts;
 
   constructor(dataStore: DataStore) {
     this.dataStore = dataStore;

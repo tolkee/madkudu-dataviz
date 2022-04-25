@@ -8,6 +8,7 @@ import {
   Bar,
   ResponsiveContainer,
 } from "recharts";
+import { generateLightColorHsl } from "../../utils";
 import { ChartData } from "../../types/chart";
 
 interface BarChartProps {
@@ -35,7 +36,7 @@ function BarChart({ data, bars, stacked }: BarChartProps) {
             key={bar}
             dataKey={bar}
             stackId={stacked ? "a" : undefined}
-            fill={`hsl(${Math.floor(Math.random() * 360)}, 70%, 80%)`}
+            fill={generateLightColorHsl()}
           />
         ))}
       </RCBarchart>

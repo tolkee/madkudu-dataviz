@@ -1,5 +1,5 @@
-import { action, computed, makeObservable, observable } from "mobx";
 import axios from "axios";
+import { action, computed, makeObservable, observable } from "mobx";
 
 import { Antelope, Filters, NumberRange, SORTS } from "../types/data";
 import {
@@ -7,24 +7,18 @@ import {
   inRange,
   isolateFieldInArray,
   sortAntelopesArray,
-} from "./utils";
-
-const DATA_URL =
-  "https://work-sample-mk-fs.s3-us-west-2.amazonaws.com/species.json";
-
-const DEFAULT_FILTERS: Filters = {
-  continents: [],
-  horns: [],
-  weightRange: { min: 0, max: 0 },
-  heightRange: { min: 0, max: 0 },
-};
+} from "../utils";
+import localAntelopes from "../data/antelopes-species.json";
+import Settings from "./settings";
 
 export default class DataStore {
   antelopes: Antelope[] = [];
   isLoading = false;
   isError = false;
-  filters: Filters = DEFAULT_FILTERS;
-  sortBy: SORTS = SORTS.NAME_A;
+  filters: Filters = Settings.defaultFilters;
+  sortBy: SORTS = Settings.defaultSort;
+  // Getting the species from a local file as DATA_URL has cors issue
+  private source: "local" | "api" = "local";
 
   constructor() {
     makeObservable(this, {
@@ -52,17 +46,23 @@ export default class DataStore {
   }
 
   async fetchData() {
-    this.setIsError(false);
-    this.setIsLoading(true);
+    if (this.source === "local") {
+      this.setAntelopes(localAntelopes);
+    } else {
+      this.setIsError(false);
+      this.setIsLoading(true);
 
-    try {
-      const { data: antelopes } = await axios.get<Antelope[]>(DATA_URL);
-      this.setAntelopes(antelopes);
-    } catch (error) {
-      this.setIsError(true);
+      try {
+        const { data: antelopes } = await axios.get<Antelope[]>(
+          Settings.dataUrl
+        );
+        this.setAntelopes(antelopes);
+      } catch (error) {
+        this.setIsError(true);
+      }
+
+      this.setIsLoading(false);
     }
-
-    this.setIsLoading(false);
   }
 
   /* ---- Computed Values ----- */

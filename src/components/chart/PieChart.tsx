@@ -6,6 +6,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { generateLightColorHsl } from "../../utils";
 import { ChartData } from "../../types/chart";
 
 interface PieChartProps {
@@ -27,10 +28,7 @@ function PieChart({ data }: PieChartProps) {
           dataKey="value"
         >
           {data.map((index) => (
-            <Cell
-              key={`cell-${index}`}
-              fill={`hsl(${Math.floor(Math.random() * 360)}, 70%, 80%)`}
-            />
+            <Cell key={`cell-${index}`} fill={generateLightColorHsl()} />
           ))}
         </Pie>
       </RCPieChart>

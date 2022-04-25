@@ -1,4 +1,4 @@
-import { Antelope, NumberRange, SORTS } from "../types/data";
+import { Antelope, NumberRange, SORTS } from "./types/data";
 
 // Return all the values (from an array of object) for a given key without duplications
 export function isolateFieldInArray<T, X extends keyof T>(
@@ -56,4 +56,8 @@ export function getNbOfAntPerValueForAField(
   });
 
   return antPerCont;
+}
+
+export function generateLightColorHsl() {
+  return `hsl(${Math.floor(Math.random() * 360)}, 70%, 80%)`;
 }

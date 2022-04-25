@@ -8,6 +8,7 @@ import {
   Line,
   ResponsiveContainer,
 } from "recharts";
+import { generateLightColorHsl } from "../../utils";
 import { ChartData } from "../../types/chart";
 
 interface LineChartProps {
@@ -30,11 +31,7 @@ function LineChart({ data, lines }: LineChartProps) {
         <Tooltip />
         <Legend />
         {lines.map((line) => (
-          <Line
-            key={line}
-            dataKey={line}
-            stroke={`hsl(${Math.floor(Math.random() * 360)}, 70%, 80%)`}
-          />
+          <Line key={line} dataKey={line} stroke={generateLightColorHsl()} />
         ))}
       </RCLineChart>
     </ResponsiveContainer>
