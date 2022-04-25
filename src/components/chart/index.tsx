@@ -21,16 +21,9 @@ function Chart({ chart, width }: ChartProps) {
   const { type, title, stacked } = chart;
 
   const ChartByType: { [x in ChartType]: ReactNode } = {
-    bar: (
-      <BarChart
-        key={type + title}
-        bars={labels}
-        data={data}
-        stacked={stacked}
-      />
-    ),
-    pie: <PieChart key={type + title} data={data} />,
-    line: <LineChart key={type + title} lines={labels} data={data} />,
+    bar: <BarChart bars={labels} data={data} stacked={stacked} />,
+    pie: <PieChart data={data} />,
+    line: <LineChart lines={labels} data={data} />,
   };
 
   return (

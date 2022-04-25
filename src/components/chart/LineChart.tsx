@@ -8,8 +8,8 @@ import {
   Line,
   ResponsiveContainer,
 } from "recharts";
-import { generateLightColorHsl } from "../../utils";
 import { ChartData } from "../../types/chart";
+import useRandomColors from "../../hooks/useRandomColors";
 
 interface LineChartProps {
   data: ChartData[];
@@ -17,6 +17,8 @@ interface LineChartProps {
 }
 
 function LineChart({ data, lines }: LineChartProps) {
+  const colors = useRandomColors(lines.length);
+
   return (
     <ResponsiveContainer width="100%" height={250}>
       <RCLineChart
@@ -30,8 +32,8 @@ function LineChart({ data, lines }: LineChartProps) {
         <YAxis />
         <Tooltip />
         <Legend />
-        {lines.map((line) => (
-          <Line key={line} dataKey={line} stroke={generateLightColorHsl()} />
+        {lines.map((line, index) => (
+          <Line key={line} dataKey={line} stroke={colors[index]} />
         ))}
       </RCLineChart>
     </ResponsiveContainer>

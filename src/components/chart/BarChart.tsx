@@ -8,8 +8,9 @@ import {
   Bar,
   ResponsiveContainer,
 } from "recharts";
-import { generateLightColorHsl } from "../../utils";
+
 import { ChartData } from "../../types/chart";
+import useRandomColors from "../../hooks/useRandomColors";
 
 interface BarChartProps {
   data: ChartData[];
@@ -18,6 +19,7 @@ interface BarChartProps {
 }
 
 function BarChart({ data, bars, stacked }: BarChartProps) {
+  const colors = useRandomColors(bars.length);
   return (
     <ResponsiveContainer width="100%" height={250}>
       <RCBarchart
@@ -31,12 +33,12 @@ function BarChart({ data, bars, stacked }: BarChartProps) {
         <YAxis />
         <Tooltip />
         <Legend />
-        {bars.map((bar) => (
+        {bars.map((bar, index) => (
           <Bar
             key={bar}
             dataKey={bar}
             stackId={stacked ? "a" : undefined}
-            fill={generateLightColorHsl()}
+            fill={colors[index]}
           />
         ))}
       </RCBarchart>
