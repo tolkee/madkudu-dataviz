@@ -22,6 +22,9 @@ export default class AnalysisStore {
     let labels: string[] = [];
 
     if (chart.dataTwo && chart.dataOne !== chart.dataTwo) {
+      // Case of Chart based on two data
+      // Analyse the data
+      // ex: {Asia: {Twisted: 4, Straight: 2,...}, Africa: {...}, ....}
       const data: Map<string, Map<string, number>> = new Map();
       this.dataStore.antelopes.forEach((ant) => {
         const dataTwo = chart.dataTwo as DataField;
@@ -35,6 +38,8 @@ export default class AnalysisStore {
           data.get(antFieldX)?.set(antFieldY, (currVal || 0) + 1);
         }
       });
+
+      // Transform data in a format readable by the charts
       data.forEach((val, key) => {
         const d: ChartData = { name: key };
         val.forEach((valY, keyY) => {
@@ -48,6 +53,9 @@ export default class AnalysisStore {
           ? this.dataStore.continents
           : this.dataStore.horns;
     } else {
+      // Case of Chart based on one data
+      // Analyse the data
+      // ex: {Africa: 20, Asia: 5, ...}
       const data: Map<string, number> = new Map();
       this.dataStore.antelopes.forEach((ant) => {
         const antFieldX = ant[chart.dataOne];
@@ -61,6 +69,7 @@ export default class AnalysisStore {
         }
       });
 
+      // Transform data in a format readable by the charts
       data.forEach((val, key) => {
         dataForChart.push({ name: key, [chart.dataOne]: val });
       });

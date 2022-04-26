@@ -21,3 +21,7 @@ To acces the dataviz app, just run in a terminal :
 ```
 yarn start
 ```
+
+## Doc
+
+- [TRD](./doc/trd.md)
